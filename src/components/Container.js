@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link, NavLink} from 'react-router-dom';
+import {Header, Arrow, Title} from './ui';
 import Button from "./general/Button";
 import styled from 'styled-components';
 import RenderIf from './general/RenderIf'
@@ -26,9 +27,8 @@ const Burger = styled.div`
 class Menu extends Component {
     state ={
         visible: false
-    }
+    };
     render(){
-
         return (
             <div>
                 <RenderIf condition={this.state.visible}>
@@ -36,46 +36,24 @@ class Menu extends Component {
                         <NavLink to="/home/">home</NavLink>
                         <NavLink to="/daily/">daily</NavLink>
                         <NavLink to="/statistics/">statistics</NavLink>
-                        <Link to="/logout/"><Button>logout</Button></Link>
+                        <Link to="/logout/">logout</Link>
                     </div>
                 </RenderIf>
                 <RenderIf condition ={!this.state.visible}>
                     <Burger />
                 </RenderIf>
             </div>
-
         )
     }
-};
-
-const Title = styled.h4`
-
-`
-
-
+}
 
 const Wrapper = styled.div`
         background-color: #dedede;
         height: 100vh;
         font-family: Montserrat, sans-serif;
         padding: 30px 20px;
-`
-const Header = styled.header`
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-`
-
-const Arrow = styled.div`
-        transform: rotate(-45deg);
-        border: 4px solid #333;
-        width: 12px;
-        height: 12px;
-        border-right: none;
-        border-bottom: none;
-        box-sizing: border-box;
-
- `
+        color: #fff;
+`;
 
 
 // Обертка для компонентов в которых нужно меню
@@ -88,7 +66,7 @@ const Container = (Component, title) => {
                     <Title>
                         {title}
                     </Title>
-                    <Menu/>
+                    <Menu />
                 </Header>
                 <Component />
             </Wrapper>
@@ -97,6 +75,6 @@ const Container = (Component, title) => {
     // Должны вернуть функцию, чтобы можно было передать в
     // Route -> component
     return WrappedComponent;
-}
+};
 
 export default Container;

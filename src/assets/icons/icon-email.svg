@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="34px" height="30px" viewBox="0 0 34 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.7.1 (28215) - http://www.bohemiancoding.com/sketch -->
+    <title>Email</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="3-2-Signup" transform="translate(-548.000000, -808.000000)">
+            <g id="Form" transform="translate(60.000000, 160.000000)">
+                <g id="Email" transform="translate(50.000000, 625.000000)">
+                    <g transform="translate(430.000000, 12.000000)">
+                        <g id="Group" transform="translate(8.000000, 11.000000)" fill="#000000">
+                            <path d="M0.40013548,0 L33.3421296,0 L16.0318392,13.0256844 L0.40013548,4.4408921e-16 Z M34,5.63744892 L34,30 L0,30 L0,6.68400537 L14.283774,18.7109814 L16.1578066,20.2101385 L18.0318392,18.7109814 L34,5.63744892 Z" id="Shape"></path>
+                        </g>
+                        <rect id="Bounds" x="0" y="0" width="50" height="50"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

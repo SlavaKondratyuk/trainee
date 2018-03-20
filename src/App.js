@@ -10,9 +10,6 @@ import {getLogged, excludeProp} from "./utils";
 import Container from './components/Container';
 
 
-
-
-
 const PrivateRoute = (props) => {
 
     // Новый компонент, который создан с меню
@@ -29,7 +26,7 @@ const PrivateRoute = (props) => {
         // Перенаправляем на страницу логина
         return <Redirect to="/login" />
     }
-}
+};
 
 class App extends Component {
   render() {
@@ -60,6 +57,6 @@ class App extends Component {
 
     );
   }
-};
+}
 
 export default App;

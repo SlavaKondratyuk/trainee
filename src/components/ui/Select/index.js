@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
-import RenderIf from "../general/RenderIf"
+import RenderIf from "../../general/RenderIf"
 import Option from "./Option";
-import "./index.css"
+import styled from 'styled-components';
+import {Icon} from '../';
+import UsernameIcon from '../../../assets/icons/icon-username.svg';
 
+const Container = styled.div``;
+const SelectBox = styled.div``;
+const SelectValue = styled.div``;
 
 class Select extends Component{
 
@@ -46,12 +51,11 @@ class Select extends Component{
 
     render(){
         return (
-            <div className={`select__wrapper
-            ${this.props.className ? this.props.className : ''}`}>
+            <Container>
                 {/*Проверка на наличие класса и если есть добавляем*/}
 
 
-                <div className="select" onClick={this.toggleVisible}>
+                <div onClick={this.toggleVisible}>
 
 
                     {/* Условный рендеринг, см. RenderIf */}
@@ -63,10 +67,10 @@ class Select extends Component{
                 <RenderIf condition={
                         this.state.selectedIndex !== 'undefined'
                     }>
-                    <span className="select__value">
-                        {this.props.children[this.state.selectedIndex]
-                            .props.children}
-                    </span>
+                    <SelectValue>
+                        {this.props.children[this.state.selectedIndex].props.children}
+                        <Icon></Icon>
+                    </SelectValue>
                 </RenderIf>
                     {/* Условный рендеринг, см. RenderIf */}
 
@@ -84,7 +88,7 @@ class Select extends Component{
                 </div>
                 {/*Рендерим Options нашего селекта, если state.visible == true*/}
 
-            </div>
+            </Container>
         )
     }
 }

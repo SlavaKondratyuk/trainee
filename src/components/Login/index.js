@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import {Button, TextInput, ErrorMessage} from "../ui";
+import {Button, TextInput, ErrorMessage, Header, BackArrow, Title} from "../ui";
 import {withRouter, Link} from "react-router-dom";
 import {getLogged} from "../../utils";
 import styled from 'styled-components';
-import UsernameIcon from '../../assets/icons/icon-username.svg'
-import PasswordIcon from '../../assets/icons/icon-password.svg'
+import UsernameIcon from '../../assets/icons/icon-username.svg';
+import PasswordIcon from '../../assets/icons/icon-password.svg';
+import SmileIcon from '../../assets/icons/icon-smile.svg';
+import EmailIcon from '../../assets/icons/icon-email.svg';
+import MoreIcon from '../../assets/icons/icon-more.svg';
+import Container from '../Container';
 
 
 const media = {
@@ -13,7 +17,7 @@ const media = {
             ${styles}
         }`
     }
-}
+};
 
 const Logo = styled.h1`
     font-size: 120px;
@@ -26,7 +30,7 @@ const SubLogo = styled(Logo)`
     font-size: 40px;
 `;
 
-const Container = styled.div`
+const Wrapper = styled.div`
     display:flex;
     flex-direction: column;
     width: 100%;
@@ -44,19 +48,19 @@ const Container = styled.div`
 const ButtonStart = styled(Button)`
     margin: 25px auto 50px
 
-`
+`;
 const InputCenter = styled.div`
     margin-top: auto;
-`
+`;
 const LinkContainer = styled.div`
     display: flex;
     justify-content: space-between;
-`
+`;
 const StyledLink = styled(Link)`
     color: grey;
     text-decoration: none;
     font-size: 11px;
-`
+`;
 
 
 // Оборачиваем в withRouter, чтобы получить доступ
@@ -85,8 +89,15 @@ class Login extends Component{
     state = {
         login: '',
         password: '',
-        visible: false
-    }
+        visible: false,
+        inputErrors: {
+            email: '',
+            password: ''
+        },
+        loginValid: true,
+        passValid: true,
+        formValid: false
+    };
 
     onChange = (inputName, event) => {
 
@@ -113,28 +124,55 @@ class Login extends Component{
             // Редирект
             this.props.history.push("/home");
         }
+    };
+
+    validateInput(fieldName, value) {
+        let inputValidationError = this.state.inputErrors;
+        let loginValid = this.state.loginValid;
+        let passValid = this.state.passValid;
+
+        switch(fieldName) {
+            case 'login':
+                loginValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+                inputValidationError.login = loginValid ? 'is valid' : ' is invalid';
+                break;
+            case 'password':
+                passValid = value.length >= 6;
+                inputValidationError.password = passValid ? 'is valid' : ' is too short';
+                break;
+            default:
+                break;
+        }
+
+        this.setState({
+            inputErrors: inputValidationError,
+            loginValid: loginValid,
+            passValid: passValid,
+        }, this.validateForm);
+    }
+
+    validateForm() {
+        this.setState({formValid: this.state.loginValid && this.state.passValid});
     }
 
     render(){
         return (
-        <Container>
+        <Wrapper>
             <Logo>TNR</Logo>
             <SubLogo>APP</SubLogo>
             <InputCenter>
                 <ErrorMessage visible={this.state.visible}>Incorrect Login</ErrorMessage>
                 <TextInput onChange={this.onChange.bind(this, 'login')}
-                       value={this.state.login} placeholder="login"
-                       type="text"
-                           image={UsernameIcon}
-                />
+                           value={this.state.login} placeholder="login"
+                           type="text"
+                           image={UsernameIcon} />
 
                 <TextInput onChange={this.onChange.bind(this, 'password')}
-                       value={this.state.password}
+                           value={this.state.password}
                            image={PasswordIcon}
-                       placeholder="password" type="password"/>
+                           placeholder="password" type="password" />
 
-                <ButtonStart type="button"
-                        onClick={this.onLogin}>
+                <ButtonStart type="button" onClick={this.onLogin}>
                     get started
                 </ButtonStart>
                 <LinkContainer>
@@ -142,21 +180,54 @@ class Login extends Component{
                     <StyledLink to="/">Need help?</StyledLink>
                 </LinkContainer>
             </InputCenter>
-
-        </Container>
+        </Wrapper>
         )
     }
-
 }
 
 export class SignupLocal extends Component {
     render(){
         return(
-            <Container>Signup</Container>
+            <Wrapper>
+                <Header>
+                    <BackArrow />
+                    <Title>
+                        Create Account
+                    </Title>
+                </Header>
+
+                <InputCenter>
+                    <TextInput image={SmileIcon}
+                               placeholder="Who are you?"
+                               type="select"
+                               image2={MoreIcon} />
+
+                    <TextInput image={UsernameIcon}
+                               placeholder="Your name"
+                               type="text" />
+
+                    <TextInput image={EmailIcon}
+                               placeholder="Your email"
+                               type="email" />
+
+                    <TextInput image={PasswordIcon}
+                               placeholder="Password"
+                               type="password" />
+
+                    <ButtonStart type="button"
+                                 onClick={this.onLogin}>
+                        get started
+                    </ButtonStart>
+                    <LinkContainer>
+                        <StyledLink to="/login">Login</StyledLink>
+                        <StyledLink to="/">Need help?</StyledLink>
+                    </LinkContainer>
+                </InputCenter>
+            </Wrapper>
         )
     }
 }
-// Оборачиваем в withRouter, чтобы получить доступ
+// Оборачиваем в withRSignupобы получить доступ
 // к this.props.history, нужен для редиректа
 export const Signup = withRouter(SignupLocal);
 export default withRouter(Login);
